@@ -1,6 +1,7 @@
-export class BookDto {
+export class Book {
     authorKey: string[];
     authorName: string[];
+    coverURL: string;
     firstPublishYear: number;
     isbn: string[];
     key: string;

@@ -5,3 +5,9 @@ export function capitalize(input: string): string {
         return '';
     }
 }
+
+export function arrayToString(array: string[]) {
+    if (!array) return 'n/a';
+
+    return array.join(', ');
+}

@@ -1,18 +1,34 @@
 import {SearchDto} from "../model/search-dto";
-import {BookDto} from "../model/book-dto";
+import {Book} from "../model/book";
 
-export async function searchForBook() {
+export async function searchForBooks(searchTerms: any) {
     try {
-        const response = await fetch('https://openlibrary.org/search.json?title=ender%27s%20game&limit=5');
+        const searchURL = createSearchUrl(searchTerms);
+        const response = await fetch(searchURL);
         const json = await response.json();
-        const searchResults = convertToSearchDto(json);
-        console.log(json);
-        console.log(searchResults);
-        return searchResults;
+        return convertToSearchDto(json);
     } catch (error) {
-        console.error(error);
+        console.error('Error fetching books', error);
     } finally {
 
+    }
+}
+
+function createSearchUrl(searchTerms: any): string {
+    const urlParams = Object.entries(searchTerms).map(([key, value]) => {
+        return getURLComponent(key, value.toString());
+    }).filter(x => x !== '');
+
+    // Good example, might be more fields: https://openlibrary.org/search.json?limit=10&title=Ender
+
+    return `https://openlibrary.org/search.json?limit=10&${urlParams.join('&')}`;
+}
+
+function getURLComponent(field: string, value: string) {
+    if (!value) {
+        return '';
+    } else {
+        return `${field}=${encodeURIComponent(value)}`;
     }
 }
 
@@ -25,11 +41,12 @@ function convertToSearchDto(jsonResponse: any): SearchDto {
     return result;
 }
 
-function convertToBookDto(jsonResponse: any): BookDto {
-    const result = new BookDto();
+function convertToBookDto(jsonResponse: any): Book {
+    const result = new Book();
 
     result.authorKey = jsonResponse['author_key'];
     result.authorName = jsonResponse['author_name'];
+    result.coverURL = convertCoverIdToUrl(jsonResponse['cover_i'])
     result.firstPublishYear = jsonResponse['first_publish_year'];
     result.isbn = jsonResponse['isbn'];
     result.person = jsonResponse['person'];
@@ -41,6 +58,13 @@ function convertToBookDto(jsonResponse: any): BookDto {
     result.subject = jsonResponse['subject'];
     result.subjectKey = jsonResponse['subject_key'];
     result.title = jsonResponse['title'];
+    result.key = jsonResponse['key'];
 
     return result;
+}
+
+function convertCoverIdToUrl(cover: number): string {
+    if (!cover) return '';
+
+    return `https://covers.openlibrary.org/b/id/${cover}-M.jpg`;
 }
