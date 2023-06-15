@@ -1,9 +1,11 @@
-import {Text, View} from "react-native";
+import {ScrollView} from "react-native";
+import {BookForm} from "../components/book/BookForm";
+import {Book} from "../model/book";
 
 export function AddScreen() {
     return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text>Add Book Screen!</Text>
-        </View>
+        <ScrollView>
+            <BookForm book={new Book()} />
+        </ScrollView>
     );
 }

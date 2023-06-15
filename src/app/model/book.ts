@@ -1,4 +1,5 @@
 export class Book {
+    // Fields from database
     authorKey: string[];
     authorName: string[];
     coverURL: string;
@@ -16,4 +17,7 @@ export class Book {
     subject: string[];
     subjectKey: string[];
     title: string;
+
+    // Custom Fields
+    readingLevel: number;
 }

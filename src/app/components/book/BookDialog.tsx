@@ -1,6 +1,6 @@
-import {Image, ScrollView, StyleSheet, Text} from "react-native";
+import {ScrollView, StyleSheet, Text} from "react-native";
 import {arrayToString} from "../../utils/string-utils";
-import {Box, Flex, Stack} from "@react-native-material/core";
+import {Flex, Stack} from "@react-native-material/core";
 import {Book} from "../../model/book";
 import {BookImage} from "./BookImage";
 import {ListExpander} from "../ListExpander";
