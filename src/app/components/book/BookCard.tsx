@@ -26,7 +26,6 @@ export function BookCard(props) {
                 </Pressable>
             </Surface>
             <Dialog visible={showDialog} onDismiss={() => setShowDialog(false)}>
-                <DialogHeader title={book.title} />
                 <DialogContent>
                     <BookDialog book={book} />
                 </DialogContent>
