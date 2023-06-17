@@ -12,6 +12,7 @@ import {
 import {capitalize} from "../../utils/string-utils";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import {useState} from "react";
+import SelectDropdown from "react-native-select-dropdown";
 
 interface GeneralFormProps {
     formTitle: string,
@@ -25,7 +26,9 @@ export interface FormElement {
     name: string,
     description?: string,
     multi?: string,
-    type?: string
+    type?: string,
+    options?: string[],
+    required?: boolean
 }
 
 export function GeneralForm(props: GeneralFormProps) {
@@ -36,23 +39,36 @@ export function GeneralForm(props: GeneralFormProps) {
         <>
             <Stack spacing={10} style={{margin: 16}}>
                 <Text>{props.formTitle}</Text>
-                <Formik initialValues={props.initialValues} onSubmit={props.onSubmit}>
+                <Formik initialValues={props.initialValues} onSubmit={props.onSubmit} >
                     {({handleChange, handleBlur, handleSubmit, values}) => (
                         <View>
                             {props.formElements.map(element => {
-                                return <TextInput variant='outlined'
-                                                  label={capitalize(element.name)}
-                                                  onChangeText={handleChange(element.name)}
-                                                  onBlur={handleBlur(element.name)}
-                                                  value={values[element.name]}
-                                                  style={styles.input}
-                                                  key={element.name}
-                                                  trailing={props => (
-                                                      <IconButton onTouchStart={() => {
-                                                          setVisible(true);
-                                                          setDescription(element.description ? element.description : '');
-                                                      }} icon={props => <Icon name="information" {...props} />} {...props} />
-                                                  )} />
+                                return (
+                                    <View key={element.name}>
+                                        {element.type === 'select' ?
+                                            <SelectDropdown data={element.options ? element.options : []}
+                                                            onSelect={handleChange(element.name)}
+                                                            buttonStyle={styles.dropdown}
+                                                            buttonTextStyle={styles.dropdownText}
+                                                            defaultButtonText="Reading Level"
+                                                            key={element.name} /> :
+                                            <TextInput variant='outlined'
+                                                       label={capitalize(element.name)}
+                                                       onChangeText={handleChange(element.name)}
+                                                       onBlur={handleBlur(element.name)}
+                                                       value={values[element.name]}
+                                                       style={styles.input}
+                                                       trailing={props => element.description ? (
+                                                           <IconButton onTouchStart={() => {
+                                                               setVisible(true);
+                                                               // @ts-ignore
+                                                               setDescription(element.description);
+                                                           }} icon={props => <Icon name="information" {...props} />} {...props} />
+                                                       ) : <></>} />
+                                        }
+                                        {element.required ? <Icon name="asterisk" style={styles.requiredIcon}/> : <></>}
+                                    </View>
+                                );
                             })}
                             <Button onPress={handleSubmit} title={props.submitText} />
                         </View>)}
@@ -78,5 +94,23 @@ export function GeneralForm(props: GeneralFormProps) {
 const styles = StyleSheet.create({
     input: {
         marginBottom: 10
+    },
+    dropdown: {
+        width: '100%',
+        minHeight: 56,
+        backgroundColor: '#FFF',
+        borderRadius: 4,
+        borderWidth: 1,
+        borderColor: '#8d8d8d',
+        marginBottom: 10
+    },
+    dropdownText: {
+        textAlign: "left"
+    },
+    requiredIcon: {
+        position: "absolute",
+        right: 2,
+        top: 2,
+        color: "red"
     }
 });

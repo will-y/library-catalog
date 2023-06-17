@@ -8,7 +8,7 @@ interface AddBookProps {
 
 export function BookForm(props: AddBookProps) {
     function onFormSubmit(values: FormikValues) {
-
+        console.log(values);
     }
 
     return(
@@ -20,14 +20,24 @@ export function BookForm(props: AddBookProps) {
     );
 }
 
+function mapBookToFormValues() {
+
+}
+
+function mapFormValuesToBook() {
+
+}
+
 const formElements: FormElement[] = [
     {
         name: 'title',
-        description: 'Title Description'
+        description: 'Title Description',
+        required: true
     },
     {
         name: 'author',
-        description: 'Author Description'
+        description: 'Author Description',
+        required: true
     },
     {
         name: 'publisher',
@@ -35,6 +45,8 @@ const formElements: FormElement[] = [
     },
     {
         name: 'level',
-        description: 'Level Description'
+        description: 'Level Description',
+        type: 'select',
+        options: ['1', '2', '3']
     }
 ];
