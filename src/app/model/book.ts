@@ -17,6 +17,7 @@ export class Book {
     subject: string[];
     subjectKey: string[];
     title: string;
+    publishers: string[];
 
     // Custom Fields
     readingLevel: number;

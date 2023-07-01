@@ -25,7 +25,7 @@ interface GeneralFormProps {
 export interface FormElement {
     name: string,
     description?: string,
-    multi?: string,
+    multi?: boolean,
     type?: string,
     options?: string[],
     required?: boolean

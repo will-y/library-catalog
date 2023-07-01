@@ -8,24 +8,39 @@ interface AddBookProps {
 
 export function BookForm(props: AddBookProps) {
     function onFormSubmit(values: FormikValues) {
+        const book = mapFormValuesToBook(values, props.book);
         console.log(values);
     }
 
     return(
         <GeneralForm formTitle="Add Book"
-                     initialValues={{}}
+                     initialValues={mapBookToFormValues(props.book)}
                      onSubmit={onFormSubmit}
                      formElements={formElements}
                      submitText="Add Book" />
     );
 }
 
-function mapBookToFormValues() {
-
+function mapBookToFormValues(book: Book): any {
+    return {
+        title: book.title,
+        author: book.authorName,
+        publisher: book.publishers.length > 0 ? book.publishers[0] : '',
+        level: book.readingLevel
+    }
 }
 
-function mapFormValuesToBook() {
+function mapFormValuesToBook(values: FormikValues, book?: Book): Book {
+    if (!book) {
+        book = new Book();
+    }
 
+    book.title = values.title;
+    book.authorName = values.authors;
+    book.publishers = [values.publisher];
+    book.readingLevel = values.readingLevel;
+
+    return book;
 }
 
 const formElements: FormElement[] = [
@@ -35,9 +50,10 @@ const formElements: FormElement[] = [
         required: true
     },
     {
-        name: 'author',
+        name: 'authors',
         description: 'Author Description',
-        required: true
+        required: true,
+        multi: true
     },
     {
         name: 'publisher',

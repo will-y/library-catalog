@@ -6,6 +6,7 @@ export async function searchForBooks(searchTerms: any) {
         const searchURL = createSearchUrl(searchTerms);
         const response = await fetch(searchURL);
         const json = await response.json();
+        console.log(json);
         return convertToSearchDto(json);
     } catch (error) {
         console.error('Error fetching books', error);
@@ -16,6 +17,7 @@ export async function searchForBooks(searchTerms: any) {
 
 function createSearchUrl(searchTerms: any): string {
     const urlParams = Object.entries(searchTerms).map(([key, value]) => {
+        // @ts-ignore
         return getURLComponent(key, value.toString());
     }).filter(x => x !== '');
 
@@ -59,6 +61,7 @@ function convertToBookDto(jsonResponse: any): Book {
     result.subjectKey = jsonResponse['subject_key'];
     result.title = jsonResponse['title'];
     result.key = jsonResponse['key'];
+    result.publishers = jsonResponse['publisher']
 
     return result;
 }
