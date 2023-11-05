@@ -9,7 +9,6 @@ interface AddBookProps {
 export function BookForm(props: AddBookProps) {
     function onFormSubmit(values: FormikValues) {
         const book = mapFormValuesToBook(values, props.book);
-        console.log(values);
     }
 
     return(
@@ -24,9 +23,8 @@ export function BookForm(props: AddBookProps) {
 function mapBookToFormValues(book: Book): any {
     return {
         title: book.title,
-        author: book.authorName,
-        publisher: book.publishers.length > 0 ? book.publishers[0] : '',
-        level: book.readingLevel
+        authors: book.authorName ? book.authorName.join(', ') : '',
+        publisher: book.publishers && book.publishers.length > 0 ? book.publishers[0] : ''
     }
 }
 

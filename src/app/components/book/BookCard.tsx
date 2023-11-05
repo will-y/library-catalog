@@ -13,9 +13,19 @@ import {useState} from "react";
 import {arrayToString} from "../../utils/string-utils";
 import {BookDialog} from "./BookDialog";
 
-export function BookCard(props) {
+interface BookCardProps {
+    book: Book,
+    navigation: any
+}
+
+export function BookCard(props: BookCardProps) {
     const book: Book = props.book;
     const [showDialog, setShowDialog] = useState(false);
+
+    function onAddPress() {
+        setShowDialog(false);
+        props.navigation.navigate('Add Book', {book: book});
+    }
 
     return (
         <>
@@ -34,7 +44,7 @@ export function BookCard(props) {
                         title="Add"
                         compact
                         variant="text"
-                        onPress={() => setShowDialog(false)} />
+                        onPress={onAddPress} />
                 </DialogActions>
             </Dialog>
         </>

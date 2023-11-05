@@ -13,7 +13,6 @@ export function ListExpander(props) {
             {needToExpand ? <Text style={{color: theme.palette.primary.main}}
                    onPress={() => {
                        setList(props.list);
-                       console.log(props.list);
                    }}> {currentList !== props.list ? '...(More)' : ''}</Text> : <></>}
         </Text>
     );

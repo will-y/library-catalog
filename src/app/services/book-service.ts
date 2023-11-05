@@ -6,7 +6,6 @@ export async function searchForBooks(searchTerms: any) {
         const searchURL = createSearchUrl(searchTerms);
         const response = await fetch(searchURL);
         const json = await response.json();
-        console.log(json);
         return convertToSearchDto(json);
     } catch (error) {
         console.error('Error fetching books', error);
