@@ -1,6 +1,7 @@
 import {Book} from "../../model/book";
 import {FormElement, GeneralForm} from "../form/GeneralForm";
 import {FormikValues} from "formik";
+import {saveBook} from "../../services/book-service";
 
 interface AddBookProps {
     book: Book
@@ -9,6 +10,7 @@ interface AddBookProps {
 export function BookForm(props: AddBookProps) {
     function onFormSubmit(values: FormikValues) {
         const book = mapFormValuesToBook(values, props.book);
+        saveBook(book);
     }
 
     return(

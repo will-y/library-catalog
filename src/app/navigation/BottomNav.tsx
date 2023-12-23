@@ -7,7 +7,9 @@ const Tab = createBottomTabNavigator();
 
 export function BottomNavigation() {
     return (
-        <Tab.Navigator>
+        <Tab.Navigator screenOptions={{
+            unmountOnBlur: true
+        }}>
             <Tab.Screen name="Home" component={HomeScreen} />
             <Tab.Screen name="Add Book" component={AddScreen} />
             <Tab.Screen name="Search" component={SearchScreen} />

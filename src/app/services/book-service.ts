@@ -70,3 +70,7 @@ function convertCoverIdToUrl(cover: number): string {
 
     return `https://covers.openlibrary.org/b/id/${cover}-M.jpg`;
 }
+
+export function saveBook(book: Book): void {
+
+}
