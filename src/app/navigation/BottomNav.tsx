@@ -3,6 +3,7 @@ import {HomeScreen} from "../screens/HomeScreen";
 import {AddScreen} from "../screens/AddScreen";
 import {SearchScreen} from "../screens/SearchScreen";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import {ScanScreen} from "../screens/ScanScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -24,6 +25,11 @@ export function BottomNavigation() {
             <Tab.Screen name="Search" component={SearchScreen} options={{
                 tabBarIcon: ({ color, size }) => (
                     <MaterialCommunityIcons name="book-search" color={color} size={size} />
+                ),
+            }}/>
+            <Tab.Screen name="Scan" component={ScanScreen} options={{
+                tabBarIcon: ({ color, size }) => (
+                    <MaterialCommunityIcons name="barcode-scan" color={color} size={size} />
                 ),
             }}/>
         </Tab.Navigator>

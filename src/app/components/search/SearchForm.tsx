@@ -1,8 +1,13 @@
 import {FormikValues} from "formik";
 import {searchForBooks} from "../../services/book-service";
 import {FormElement, GeneralForm} from "../form/GeneralForm";
+import {Book} from "../../model/book";
 
-export function SearchForm(props) {
+interface SearchFormProps {
+    setBooks: (books: Book[]) => void
+}
+
+export function SearchForm(props: SearchFormProps) {
     function onFormSubmit(values: FormikValues) {
         searchForBooks(values).then(searchResults => {
             if (searchResults) {
