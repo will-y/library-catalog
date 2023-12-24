@@ -4,13 +4,15 @@ import {FormikValues} from "formik";
 import {saveBook} from "../../services/book-service";
 
 interface AddBookProps {
-    book: Book
+    book: Book,
+    navigation: any
 }
 
 export function BookForm(props: AddBookProps) {
     function onFormSubmit(values: FormikValues) {
         const book = mapFormValuesToBook(values, props.book);
         saveBook(book);
+        props.navigation.navigate('Library');
     }
 
     return(
@@ -36,7 +38,7 @@ function mapFormValuesToBook(values: FormikValues, book?: Book): Book {
     }
 
     book.title = values.title;
-    book.authorName = values.authors;
+    book.authorName = [values.authors];
     book.publishers = [values.publisher];
     book.readingLevel = values.readingLevel;
 
@@ -46,22 +48,22 @@ function mapFormValuesToBook(values: FormikValues, book?: Book): Book {
 const formElements: FormElement[] = [
     {
         name: 'title',
-        description: 'Title Description',
+        description: 'Title of the Book',
         required: true
     },
     {
         name: 'authors',
-        description: 'Author Description',
+        description: 'Author of the Book',
         required: true,
         multi: true
     },
     {
         name: 'publisher',
-        description: 'Publisher Description'
+        description: 'Publisher of the Book'
     },
     {
-        name: 'level',
-        description: 'Level Description',
+        name: 'readingLevel',
+        description: 'Book Reading Level',
         type: 'select',
         options: ['1', '2', '3']
     }

@@ -1,9 +1,23 @@
-import {Text, View} from "react-native";
+import {ScrollView} from "react-native";
+import {getLibrary} from "../services/book-service";
+import {Book} from "../model/book";
+import {BookCard} from "../components/book/BookCard";
+import {useEffect, useState} from "react";
 
-export function HomeScreen() {
+export function HomeScreen({ navigation }) {
+    const [books, setBooks] = useState([] as Book[]);
+
+    useEffect(() => {
+        return getLibrary((dbBooks) => {
+            setBooks(dbBooks);
+        });
+    }, []);
+
     return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text>Home Screen!</Text>
-        </View>
+        <ScrollView style={{paddingTop: 10, paddingBottom: 10}}>
+            {books.map(book => {
+                return <BookCard book={book} key={book.key} navigation={navigation} searchScreen={false}/>
+            })}
+        </ScrollView>
     );
 }

@@ -21,4 +21,5 @@ export class Book {
 
     // Custom Fields
     readingLevel: number;
+    firebaseKey: string;
 }

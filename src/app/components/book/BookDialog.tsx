@@ -7,7 +7,6 @@ import {ListExpander} from "../ListExpander";
 
 export function BookDialog(props) {
     const book: Book = props.book;
-
     return (
         <ScrollView>
             <Stack spacing={15}>
@@ -17,6 +16,7 @@ export function BookDialog(props) {
                         <Stack spacing={10}>
                             <Text>{arrayToString(book.authorName)}</Text>
                             {book.ratingsCount ? <Text>{Math.round(book.ratingsAverage * 100) / 100}/5  ({book.ratingsCount} ratings)</Text> : <></>}
+                            {book.readingLevel ? <Text>Reading Level: {book.readingLevel}</Text> : <></>}
                         </Stack>
                     </Flex>
                     <Flex shrink={0}>

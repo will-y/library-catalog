@@ -11,7 +11,7 @@ export function SearchScreen( { navigation }) {
         <ScrollView>
             <SearchForm setBooks={setBooks} />
             {books.map(book => {
-                return <BookCard book={book} key={book.key} navigation={navigation} />
+                return <BookCard book={book} key={book.key} navigation={navigation} searchScreen={true}/>
             })}
         </ScrollView>
     );

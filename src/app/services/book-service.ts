@@ -1,5 +1,6 @@
 import {SearchDto} from "../model/search-dto";
 import {Book} from "../model/book";
+import database, {FirebaseDatabaseTypes} from '@react-native-firebase/database';
 
 export async function searchForBooks(searchTerms: any) {
     try {
@@ -72,5 +73,39 @@ function convertCoverIdToUrl(cover: number): string {
 }
 
 export function saveBook(book: Book): void {
+    const newReference = database().ref("/TEST/1/books").push();
 
+    newReference.set(book).then((value) => {
+        console.log("Book saved: " + value);
+    });
+}
+
+export function getLibrary(callback: (books: Book[]) => void) {
+    const dbCallback = (snapshot:  FirebaseDatabaseTypes.DataSnapshot) => {
+        callback(mapResultToArray(snapshot.val()));
+    }
+    database().ref("/TEST/1/books").on('value', dbCallback);
+
+    return () => {database().ref("/TEST/1/books").off('value', dbCallback)}
+}
+
+export function unsubscribeFromLibrary() {
+
+}
+
+function mapResultToArray(value: any): Book[] {
+    const books: Book[] = [];
+    for (const [key, book] of Object.entries(value)) {
+        // @ts-ignore
+        book.firebaseKey = key;
+        // @ts-ignore
+        if (!(book.authorName instanceof Array)) {
+            // @ts-ignore
+            book.authorName = [book.authorName];
+        }
+        // @ts-ignore
+        books.push(book);
+    }
+
+    return books;
 }

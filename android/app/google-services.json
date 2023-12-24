@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "725669435293",
+    "project_id": "library-catalog-ec192",
+    "storage_bucket": "library-catalog-ec192.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:725669435293:android:8074e0639d27b15df98174",
+        "android_client_info": {
+          "package_name": "dev.willyelton.librarycatalog"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtgEmYMEjDoS6vt8wM-rMgUOTuejf2Nc4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

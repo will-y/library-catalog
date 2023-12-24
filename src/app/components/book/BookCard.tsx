@@ -5,7 +5,6 @@ import {
     Dialog,
     DialogActions,
     DialogContent,
-    DialogHeader,
     Pressable,
     Surface
 } from "@react-native-material/core";
@@ -15,7 +14,8 @@ import {BookDialog} from "./BookDialog";
 
 interface BookCardProps {
     book: Book,
-    navigation: any
+    navigation: any,
+    searchScreen: boolean
 }
 
 export function BookCard(props: BookCardProps) {
@@ -39,13 +39,13 @@ export function BookCard(props: BookCardProps) {
                 <DialogContent>
                     <BookDialog book={book} />
                 </DialogContent>
-                <DialogActions>
+                {props.searchScreen ? <DialogActions>
                     <Button
                         title="Add"
                         compact
                         variant="text"
-                        onPress={onAddPress} />
-                </DialogActions>
+                        onPress={onAddPress}/>
+                </DialogActions> : <></>}
             </Dialog>
         </>
     );

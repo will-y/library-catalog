@@ -23,26 +23,26 @@ export function SearchForm(props) {
 const formElements: FormElement[] = [
     {
         name: 'title',
-        description: 'Title Description'
+        description: 'Search by full or partial title'
     },
     {
         name: 'author',
-        description: 'Author Description'
+        description: 'Search by author first or last name'
     },
     {
         name: 'subject',
-        description: 'Subject Description'
+        description: 'Search by subject of book'
     },
     {
         name: 'place',
-        description: 'Place Description'
+        description: 'Search by locations in the book'
     },
     {
         name: 'person',
-        description: 'Person Description'
+        description: 'Search by characters in the book'
     },
     {
         name: 'publisher',
-        description: 'Publisher Description'
+        description: 'Search by publisher'
     }
 ];

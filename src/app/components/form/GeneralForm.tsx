@@ -34,6 +34,7 @@ export interface FormElement {
 export function GeneralForm(props: GeneralFormProps) {
     const [visible, setVisible] = useState(false);
     const [description, setDescription] = useState('');
+    const [title, setTitle] = useState('');
 
     return (
         <>
@@ -63,6 +64,7 @@ export function GeneralForm(props: GeneralFormProps) {
                                                                setVisible(true);
                                                                // @ts-ignore
                                                                setDescription(element.description);
+                                                               setTitle(element.name);
                                                            }} icon={props => <Icon name="information" {...props} />} {...props} />
                                                        ) : <></>} />
                                         }
@@ -75,7 +77,7 @@ export function GeneralForm(props: GeneralFormProps) {
                 </Formik>
             </Stack>
             <Dialog visible={visible} onDismiss={() => setVisible(false)}>
-                <DialogHeader title="Dialog Header" />
+                <DialogHeader title={capitalize(title)} />
                 <DialogContent>
                     <Text>{description}</Text>
                 </DialogContent>
